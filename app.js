@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // Initialize the Express app
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000
 // https://www.mongodb.com/cloud/atlas, Create a free account and create a cluster and get the connection string
 const MONGO_URI = 'mongodb+srv://user:user@cluster0.hlrtz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your MongoDB URI
 const DB_NAME = 'moviesdb';
@@ -19,12 +19,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB client initialization
+var connected = false;
 let db;
 MongoClient.connect(MONGO_URI)
     .then(client => {
         // Connect to the specific database
         db = client.db(DB_NAME);
         console.log('Connected to MongoDB');
+        connected = true;
     })
     .catch(err => console.error('MongoDB connection error:', err));
 
@@ -83,7 +85,7 @@ app.get('/movies/stream', async (req, res) => {
 });
 
 app.get('/', async (req, res) => {
-    res.send('Hello World');
+    res.send('Hello World, connection-status: ' + connected);
 });
 
 // Start the server
