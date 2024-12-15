@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // Initialize the Express app
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 // https://www.mongodb.com/cloud/atlas, Create a free account and create a cluster and get the connection string
 const MONGO_URI = 'mongodb+srv://user:user@cluster0.hlrtz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your MongoDB URI
 const DB_NAME = 'moviesdb';
