@@ -82,6 +82,10 @@ app.get('/movies/stream', async (req, res) => {
     }
 });
 
+app.get('/', async (req, res) => {
+    res.send('Hello World');
+});
+
 // Start the server
 // The app listens for incoming requests on the specified port
 app.listen(PORT, () => {
