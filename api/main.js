@@ -30,7 +30,7 @@ MongoClient.connect(MONGO_URI)
 
 // Endpoint to insert a movie
 // This endpoint handles POST requests to add a new movie to the database
-app.post('/movies', async (req, res) => {
+app.post('/api/movies', async (req, res) => {
     try {
         // Extract movie details from the request body
         const { name, year, rating } = req.body;
