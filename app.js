@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // Initialize the Express app
 const app = express();
-const PORT = process.env.PORT || 8000
+const PORT = 3000;
 // https://www.mongodb.com/cloud/atlas, Create a free account and create a cluster and get the connection string
 const MONGO_URI = 'mongodb+srv://user:user@cluster0.hlrtz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your MongoDB URI
 const DB_NAME = 'moviesdb';
@@ -19,20 +19,20 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB client initialization
-var connected = false;
 let db;
 MongoClient.connect(MONGO_URI)
     .then(client => {
         // Connect to the specific database
         db = client.db(DB_NAME);
         console.log('Connected to MongoDB');
-        connected = true;
+        console.log('Now run the frontend part of the application');
+        console.log('Type npm start in the terminal');
     })
     .catch(err => console.error('MongoDB connection error:', err));
 
 // Endpoint to insert a movie
 // This endpoint handles POST requests to add a new movie to the database
-app.post('/api/movies', async (req, res) => {
+app.post('/movies', async (req, res) => {
     try {
         // Extract movie details from the request body
         const { name, year, rating } = req.body;
@@ -82,10 +82,6 @@ app.get('/movies/stream', async (req, res) => {
         // Handle any errors during the process
         res.status(500).json({ error: 'Internal server error', details: err.message });
     }
-});
-
-app.get('/', async (req, res) => {
-    res.send('Hello World, connection-status: ' + connected);
 });
 
 // Start the server
